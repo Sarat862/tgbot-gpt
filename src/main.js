@@ -5,6 +5,7 @@ import 'dotenv/config'
 
 import { ogg } from "./ogg.js";
 import { openai } from "./openai.js";
+import {textConverter} from "./textToSpeech.js";
 
 const INITIAL_SESSION = {
     messages: [],
@@ -40,6 +41,8 @@ bot.on(message("voice"), async (ctx) => {
         const response = await openai.chat(ctx.session.messages);
         ctx.session.messages.push({ role: openai.roles.ASSISTANT, content: response.content });
 
+        const source = await textConverter.textToSpeech(response.content);
+        await ctx.sendAudio({ source });
         await ctx.reply(response.content);
     }
     catch (e) {
@@ -56,6 +59,8 @@ bot.on(message("text"), async (ctx) => {
         const response = await openai.chat(ctx.session.messages);
         ctx.session.messages.push({ role: openai.roles.ASSISTANT, content: response.content });
 
+        const source = await textConverter.textToSpeech(response.content);
+        await ctx.sendAudio({ source });
         await ctx.reply(response.content);
     }
     catch (e) {
