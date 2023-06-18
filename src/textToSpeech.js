@@ -10,7 +10,7 @@ class TextConverter {
 
     async getToken() {
         const key = JSON.parse(
-            readFileSync(resolve(__dirname, "../google-key/utility-subset-376012-9f13d9f5f7b3.json"), "utf-8")
+            readFileSync(resolve(__dirname, "../google-key/utility-subset-376012-df8180e6ca2c.json"), "utf-8")
         )
         const token = jwt.sign(
             {
