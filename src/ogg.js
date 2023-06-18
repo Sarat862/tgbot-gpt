@@ -23,6 +23,7 @@ class OggConverter {
                     .on("end", () => {
                         removeFile(input)
                         resolve(outputPath)
+                        removeFile(outputPath)
                     })
                     .on("error", (err) => reject(err.message))
                     .run()
